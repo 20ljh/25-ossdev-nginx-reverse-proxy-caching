@@ -1,10 +1,10 @@
 # 🚀 NGINX Reverse Proxy Caching
 
-이 프로젝트는 **NGINX의 리버스 프록시(Reverse Proxy)와 캐싱(Caching) 기능**을 실습하고 시연하기 위해 구성되었습니다.
+이 브랜치는 **NGINX의 리버스 프록시(Reverse Proxy)와 캐싱(Caching) 기능**을 실습하고 시연하기 위해 구성되었습니다.
 
 의도적으로 응답 속도를 늦춘 백엔드 서버(Node.js)를 NGINX 뒤에 배치하여, **캐싱 적용 전후의 응답 속도 차이**를 시각적으로 검증할 수 있습니다.
 
-## 📋 사전 준비 사항 (Prerequisites)
+## 📋 설치 요구 사항 (Requirements)
 
 이 프로젝트를 실행하기 위해서는 사용자의 컴퓨터에 다음 도구가 설치되어 있어야 합니다.
 
@@ -21,19 +21,19 @@
 
 ```bash
 # 코드 다운로드
-git clone https://github.com/20ljh/25-ossdev-nginx-reverse-proxy-test.git
+git clone https://github.com/SeungwonChoi-kr/2025-OpenSourceSW.git
 
 # 프로젝트 폴더로 이동
-cd 25-ossdev-nginx-reverse-proxy-test
+cd 2025-OpenSourceSW
 ```
 
 ### 2\. 작업 브랜치로 이동
 
-리버스 프록시 캐싱을 구현한 `feature/caching` 브랜치로 전환합니다.
+리버스 프록시 캐싱을 구현한 `reverse-proxy-caching` 브랜치로 전환합니다.
 
 ```bash
 # 브랜치 변경
-git checkout feature/caching
+git checkout reverse-proxy-caching
 ```
 
 ### 3\. 서버 실행 (Docker)
@@ -71,9 +71,16 @@ docker-compose up -d
 
 개발자 도구(Network 탭)에서 `localhost` 요청을 클릭하고 **Headers** 탭을 확인합니다.
 
-  * **`X-Real-Ip`** : NGINX가 사용자의 실제 IP를 백엔드에 전달했음을 보여줍니다. (리버스 프록시)
+  * **`X-Client-IP`** : NGINX가 사용자의 실제 IP를 백엔드에 전달했음을 보여줍니다. (리버스 프록시)
+  * **`X-Actual-Backend-IP`** : NGINX가 전달한 백엔드의 IP를 보여줍니다. (캐시 적중 시 사라짐)
   * **`X-Cache-Status: HIT`** : 캐시가 적중했음을 의미합니다. (첫 접속 시엔 `MISS`)
   * **`X-Nginx-Message`** : NGINX가 요청을 확인하고 처리했음을 증명하는 메시지가 출력됩니다.
+
+Docker의 **Containers** 탭에서 `2025-opensourcesw` 컨테이너를 확인합니다.
+
+  * **`backend`** : 백엔드 서버 내부 IP 주소가 위의 헤더 중 `X-Actual-Backend-IP`와 동일한 것을 확인합니다.
+    
+> **참고** : 캐시가 적중(HIT)한 경우에는 NGINX가 백엔드 서버와 통신하지 않으므로 `X-Actual-Backend-IP` 헤더가 나타나지 않을 수 있습니다.
 
 ***
 
@@ -96,4 +103,4 @@ docker-compose down
 
 -----
 
-**2025-2 오픈소스SW개발 기말과제 이주형**
+**2025-2 오픈소스SW개발 기말과제 박준성, 이주형**
