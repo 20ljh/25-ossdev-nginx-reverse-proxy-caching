@@ -19,7 +19,7 @@
 
 ```
 # 코드 다운로드
-git clone [https://github.com/20ljh/25-ossdev-nginx-reverse-proxy-caching.git](https://github.com/20ljh/25-ossdev-nginx-reverse-proxy-caching.git)
+git clone https://github.com/20ljh/25-ossdev-nginx-reverse-proxy-caching.git
 
 # 프로젝트 폴더로 이동
 cd 25-ossdev-nginx-reverse-proxy-caching
